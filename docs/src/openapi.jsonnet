@@ -386,11 +386,11 @@ std.manifestYamlDoc(
           tags: [
             'Tags',
           ],
-          summary: 'Get a list of all tags and their usage counts.\n',
-          description: 'Returns all tags found across all files in the vault, along with the number of times each tag is used.\n',
+          summary: 'Get a list of all tags with metadata.\n',
+          description: 'Returns all tags found across all files in the vault. Each tag is returned without the `#` prefix and includes metadata such as usage count. The response structure is extensible to support additional metadata in the future.\n',
           responses: {
             '200': {
-              description: 'A mapping of tag names to their usage counts.',
+              description: 'A mapping of tag names to their metadata.',
               content: {
                 'application/json': {
                   schema: {
@@ -399,16 +399,22 @@ std.manifestYamlDoc(
                       tags: {
                         type: 'object',
                         additionalProperties: {
-                          type: 'number',
+                          type: 'object',
+                          properties: {
+                            count: {
+                              type: 'number',
+                              description: 'Number of times this tag is used across the vault.',
+                            },
+                          },
                         },
                       },
                     },
                   },
                   example: {
                     tags: {
-                      '#project': 3,
-                      '#important': 1,
-                      '#work/tasks': 2,
+                      project: { count: 3 },
+                      important: { count: 1 },
+                      'work/tasks': { count: 2 },
                     },
                   },
                 },

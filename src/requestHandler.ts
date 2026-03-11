@@ -1093,9 +1093,13 @@ export default class RequestHandler {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const allTags = (this.app.metadataCache as any).getTags();
 
-    res.json({
-      tags: allTags,
-    });
+    const tags: Record<string, { count: number }> = {};
+    for (const [tag, count] of Object.entries(allTags)) {
+      const name = tag.startsWith("#") ? tag.slice(1) : tag;
+      tags[name] = { count: count as number };
+    }
+
+    res.json({ tags });
   }
 
   async commandGet(req: express.Request, res: express.Response): Promise<void> {

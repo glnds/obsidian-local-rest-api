@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(npm test:*)",
+      "Bash(npm install)",
+      "Bash(make build:*)",
+      "Bash(export VAULT_PATH=\"/Users/glnds/Library/Mobile Documents/iCloud~md~obsidian/Documents/My Second Mind\")",
+      "Bash(make install:*)",
+      "Bash(git tag:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

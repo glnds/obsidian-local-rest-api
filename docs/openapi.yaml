@@ -1706,26 +1706,33 @@ paths:
   /tags/:
     get:
       description: |
-        Returns all tags found across all files in the vault, along with the number of times each tag is used.
+        Returns all tags found across all files in the vault. Each tag is returned without the `#` prefix and includes metadata such as usage count. The response structure is extensible to support additional metadata in the future.
       responses:
         "200":
           content:
             application/json:
               example:
                 tags:
-                  "#important": 1
-                  "#project": 3
-                  "#work/tasks": 2
+                  important:
+                    count: 1
+                  project:
+                    count: 3
+                  work/tasks:
+                    count: 2
               schema:
                 properties:
                   tags:
                     additionalProperties:
-                      type: "number"
+                      properties:
+                        count:
+                          description: "Number of times this tag is used across the vault."
+                          type: "number"
+                      type: "object"
                     type: "object"
                 type: "object"
-          description: "A mapping of tag names to their usage counts."
+          description: "A mapping of tag names to their metadata."
       summary: |
-        Get a list of all tags and their usage counts.
+        Get a list of all tags with metadata.
       tags:
         - "Tags"
   /vault/:

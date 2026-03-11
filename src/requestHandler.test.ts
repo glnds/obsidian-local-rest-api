@@ -758,9 +758,9 @@ describe("requestHandler", () => {
         .expect(200);
 
       expect(result.body.tags).toEqual({
-        "#project": 3,
-        "#important": 1,
-        "#work/tasks": 2,
+        project: { count: 3 },
+        important: { count: 1 },
+        "work/tasks": { count: 2 },
       });
     });
 
